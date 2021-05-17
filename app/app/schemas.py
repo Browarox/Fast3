@@ -34,3 +34,13 @@ class Product(BaseModel):
 
     class Config:
         orm_mode = True
+
+class SupplierCreator(BaseModel):
+    CompanyName: str
+    ContactName: Optional[str]
+    ContactTitle: Optional[str]
+    Address: Optional[str]
+    City: Optional[str]
+    PostalCode: Optional[str]
+    Country: Optional[str]
+    Phone: Optional[str]

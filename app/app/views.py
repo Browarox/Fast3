@@ -42,3 +42,9 @@ async def get_products_by_supp(supp_id: PositiveInt, db: Session = Depends(get_d
     if db_supp is None or not db_supp:
         raise HTTPException(status_code=404)
     return [{'ProductID': product.ProductID, 'ProductName': product.ProductName, 'Category': {"CategoryID": product.CategoryID, 'CategoryName': product.CategoryName, }, 'Discontinued': product.Discontinued,} for product in db_supp]
+
+
+@router.post("/suppliers", status_code=201)
+async def create_supplier(supp: schemas.SupplierCreator, db: Session=Depends(get_db)):
+    new_supp_id = crud.get_last_supp_id(db).SupplierID + 1
+    return crud.add_supplier(supp_id=new_supp_id, db=db, supp=supp)
