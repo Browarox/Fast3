@@ -48,3 +48,11 @@ async def get_products_by_supp(supp_id: PositiveInt, db: Session = Depends(get_d
 async def create_supplier(supp: schemas.SupplierCreator, db: Session=Depends(get_db)):
     new_supp_id = crud.get_last_supp_id(db).SupplierID + 1
     return crud.add_supplier(supp_id=new_supp_id, db=db, supp=supp)
+
+
+@router.put("/suppliers/{supp_id}", status_code=200)
+async def update_supplier(supp_id: PositiveInt, supp: schemas.SupplierCreator, db: Session=Depends(get_db)):
+    db_supp = crud.get_suppliers(db)
+    if supp_id not in [db_supplier.SupplierID for db_supplier in db_supp]:
+        raise HTTPException(status_code=404)
+    return crud.update_supplier(supp_id=supp_id, db=db, supp=supp)
