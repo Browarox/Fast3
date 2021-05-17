@@ -51,7 +51,7 @@ async def create_supplier(supp: schemas.SupplierCreator, db: Session=Depends(get
 
 
 @router.put("/suppliers/{supp_id}", status_code=200)
-async def update_supplier(supp_id: PositiveInt, supp: schemas.SupplierCreator, db: Session=Depends(get_db)):
+async def update_supplier(supp_id: PositiveInt, supp: schemas.SupplierUpdater, db: Session=Depends(get_db)):
     db_supp = crud.get_suppliers(db)
     if supp_id not in [db_supplier.SupplierID for db_supplier in db_supp]:
         raise HTTPException(status_code=404)
