@@ -56,3 +56,11 @@ async def update_supplier(supp_id: PositiveInt, supp: schemas.SupplierUpdater, d
     if supp_id not in [db_supplier.SupplierID for db_supplier in db_supp]:
         raise HTTPException(status_code=404)
     return crud.update_supplier(supp_id=supp_id, db=db, supp=supp)
+
+
+@router.delete("/suppliers/{supp_id}", status_code=204)
+async def delete_supplier(supp_id: PositiveInt, db: Session=Depends(get_db)):
+    db_supp = crud.get_suppliers(db)
+    if supp_id not in [db_supplier.SupplierID for db_supplier in db_supp]:
+        raise HTTPException(status_code=404)
+    return crud.delete_supplier(supp_id=supp_id, db=db)

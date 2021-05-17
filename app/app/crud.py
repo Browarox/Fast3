@@ -59,3 +59,8 @@ def update_supplier(supp_id: int, db: Session, supp: schemas.SupplierUpdater):
     db.commit()
     db.refresh(dbb)
     return dbb
+
+def delete_supplier(supp_id: int, db: Session):
+    supp_del = db.query(models.Supplier).filter(models.Supplier.SupplierID==supp_id).first()
+    db.delete(supp_del)
+    db.commit()
