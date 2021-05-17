@@ -45,7 +45,8 @@ def update_supplier(supp_id: int, db: Session, supp: schemas.SupplierUpdater):
             changes_dict[change[0]]=change[1]
     dbb = db.query(models.Supplier).filter(models.Supplier.SupplierID==supp_id).first()
 
-    if "CompanyName" in changes_dict.keys(): dbb.CompanyName= changes_dict["CompanyName"]
+    if "CompanyName" in changes_dict.keys(): dbb.CompanyName = changes_dict["CompanyName"]
+    if "ContactName" in changes_dict.keys(): dbb.ContactName = changes_dict["ContactName"]
     if "ContactTitle" in changes_dict.keys(): dbb.ContactTitle = changes_dict["ContactTitle"]
     if "Address" in changes_dict.keys(): dbb.Address = changes_dict["Address"]
     if "City" in changes_dict.keys(): dbb.City = changes_dict["City"]
